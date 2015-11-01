@@ -12,7 +12,7 @@ This was built on a system using the Raspberry Pi with the following setup:
  * [`omxplayer`](https://github.com/popcornmix/omxplayer) installed
  * Node.js and NPM installed
  * A connected [touchatag](http://store.touchatag.com/acatalog/touchatag.html) USB RFID reader
- * SSH access to the pi for development & testing (optional)
+ * SSH access to the pi for installation & testing
 
 ### Setting up the USB drive
 
@@ -30,10 +30,14 @@ Here are some of the resources we used:
 
 ### Install `omxplayer`
 
-This one should be pretty easy. You should be able to just run:
+This one should be pretty easy. You should be able to just run this logged into your pi:
 
 ```bash
 sudo apt-get omxplayer
 ```
 
-https://github.com/popcornmix/omxplayer
+If that doesn't work you can try building from source: https://github.com/popcornmix/omxplayer
+
+### Install Node.js, NPM
+
+I banged my head against for a while, but I think the solution I came to was simply to [upgrade to Raspbian Jessie](http://raspberrypi.stackexchange.com/questions/27858/upgrade-to-raspbian-jessie) and then install NPM.
