@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sfpc-amd/sweet-dreams-theater/issues"
   },
-  "homepage": "https://github.com/sfpc-amd/sweet-dreams-theater"
+  "homepage": "https://github.com/sfpc-amd/sweet-dreams-theater",
+  "dependencies": {
+    "omx-manager": "0.0.3"
+  }
 }
