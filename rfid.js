@@ -61,6 +61,8 @@ RFID.prototype.nfcList = function() {
 RFID.prototype._nfcList = function(error, stdout, stderr) {
 	var id = null;
 
+	console.log('poll check');
+
 	if(error) {
 		this.emit('error', error);
 		return;
