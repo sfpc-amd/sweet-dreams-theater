@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sfpc-amd/sweet-dreams-theater",
   "dependencies": {
-    "omx-manager": "0.0.3"
+    "omxdirector": "^0.1.1",
+    "pcsclite": "^0.4.4"
   }
 }
