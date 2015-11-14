@@ -1,7 +1,7 @@
 var sys = require('sys');
 var exec = require('child_process').exec;
 var events = require('events');
-var EventEmitter = new events.EventEmitter;
+var EventEmitter = events.EventEmitter;
 var util = require('util');
 
 var re = /UID \([A-z0-9]+\):([a-z0-9 ]+)/;
