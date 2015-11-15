@@ -20,42 +20,38 @@ function init() {
 
 }
 
-function
 
 function onRfidChange(id) {
   console.log("Change tag: "+ id);
 
   if(config.playlistMapping[id]) {
-    console.log("Set play directory: "+config.mediaDir+config.playlistMapping[id]);    
+    playDirectory(path.join(config.mediaDir, config.playlistMapping[id]);    
+  } else {
+    console.error('Id not found!', id);
   }
 }
+
+function playDirectory(mediaPath) {
+  omx.setVideoDir(mediaPath);
+
+  // get list of files
+  fs.readdir(mediaPath, function(err, files) {
+
+    console.log('play files', files);
+
+    omx.play(files, {loop: true});
+
+  });
+
+}
+
  
 function printIntro() {
   console.log(pkg.title+' v'+pkg.version);
 }
 
-// read all files in given directory
-// fs.readdir(p, function(err, files) {
-//   if(err) {
-//     throw err;
-//   }
+read all files in given directory
 
-//   files.map(function (file) {
-//     // get full file path
-//     return path.join(p, file);
-//   }).filter(function (file) {
-//     // filter only playable movie files
-//     var re = /\.(mov|avi|mp4)$/i;
-//     return fs.statSync(file).isFile() && re.test(file);
-//   }).forEach(function (file) {
-//     playlist.push(file);
-//   });
-
-//   console.log('playlist: ', playlist);
-
-//   omx.play(playlist, {loop: true});
-
-// });
 
 
 // jenky way of keeping script open
