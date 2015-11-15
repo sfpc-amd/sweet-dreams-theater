@@ -25,7 +25,7 @@ function onRfidChange(id) {
   console.log("Change tag: "+ id);
 
   if(config.playlistMapping[id]) {
-    playDirectory(path.join(config.mediaDir, config.playlistMapping[id]);    
+    playDirectory(path.join(config.mediaDir, config.playlistMapping[id]));    
   } else {
     console.error('Id not found!', id);
   }
@@ -50,7 +50,7 @@ function printIntro() {
   console.log(pkg.title+' v'+pkg.version);
 }
 
-read all files in given directory
+// read all files in given directory
 
 
 
