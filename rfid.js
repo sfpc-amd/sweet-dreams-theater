@@ -31,6 +31,7 @@ var re = /UID \([A-z0-9]+\):([a-z0-9 ]+)/
 var RFID = function(opts) {
 	var opts = opts || {};		
 	this.delay = opts.delay || defaultDelay;
+	this.debug = (typeof opts.debug == 'undefined') ? false : opts.debug;
 	this.intervalId = null;	
 
 	EventEmitter.call(this);
@@ -39,10 +40,14 @@ var RFID = function(opts) {
 util.inherits(RFID, EventEmitter);
 
 RFID.prototype.start = function() {
+	var self = this;
+
 	if(!polling) {
-		this.intervalId = setTimeout(this.nfcList, this.pollDelay);
+		this.intervalId = setInterval(function() { self.nfcList() }, this.delay);
 		polling = true;
 		this.emit('poll:start');
+
+		if(this.debug) console.log('RFID: poll:start', this.delay);
 	}
 };
 
@@ -51,31 +56,32 @@ RFID.prototype.stop = function() {
 		clearTimeout(this.intervalId);
 		polling = false;
 		this.emit('poll:stop');
+
+		if(this.debug) console.log('RFID: poll:stop');
 	}
 };
 
 RFID.prototype.nfcList = function() {
-	exec('nfc-list', this._nfcList);
+	if(this.debug) console.log('RFID: nfcList');
+	exec('nfc-list', this._nfcList.bind(this));
 };
 
 RFID.prototype._nfcList = function(error, stdout, stderr) {
 	var id = null;
 
-	console.log('poll check');
-
 	if(error) {
 		this.emit('error', error);
+
+		if(this.debug) console.error('RFID: error: ', error);
 		return;
 	}
 
 	// search for id
 	if(re.test(stdout)) {
 		id = re.exec(stdout)[1].replace(/ /g, '');
-
 		if(id != currentId) {
 			this.emit('change', id);
 		}
-
 		currentId = id;
 	}
 
@@ -83,6 +89,9 @@ RFID.prototype._nfcList = function(error, stdout, stderr) {
 	// emit a poll event no matter what
 	// (will be `null` if no card is present)
 	this.emit('poll', id);
+	
+	if(this.debug) console.log('RFID: poll: ', id);
+
 };
 
 
