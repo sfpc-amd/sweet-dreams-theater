@@ -2,9 +2,14 @@ var RFID = require('./rfid.js');
 
 var rfid = new RFID();
 
+// rfid.on('poll', function(id) {
+// 	console.log('poll event', id);
+// });
+
 rfid.on('poll', function(id) {
-	console.log('poll event', id);
+	console.log('change', id);
 });
+
 
 rfid.on('poll:start', function() {
 	console.log('start polling');
