@@ -6,7 +6,7 @@ var rfid = new RFID();
 // 	console.log('poll event', id);
 // });
 
-rfid.on('poll', function(id) {
+rfid.on('change', function(id) {
 	console.log('change', id);
 });
 
@@ -27,5 +27,5 @@ rfid.start();
 
 
 setInterval(function(){
-	console.log('tick');
+	// console.log('tick');
 }, 1000);
