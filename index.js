@@ -20,8 +20,9 @@ function init() {
 
 }
 
+function
 
-function onTagChange(id) {
+function onRfidChange(id) {
   console.log("Change tag: "+ id);
 
   if(config.playlistMapping[id]) {

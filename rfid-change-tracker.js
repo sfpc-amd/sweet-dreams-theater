@@ -11,11 +11,11 @@ rfid.on('change', function(id) {
 });
 
 
-rfid.on('poll:start', function() {
+rfid.on('start', function() {
 	console.log('start polling');
 });
 
-rfid.on('poll:stop', function() {
+rfid.on('stop', function() {
 	console.log('stop polling');
 });
 

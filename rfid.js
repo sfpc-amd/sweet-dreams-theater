@@ -55,9 +55,9 @@ RFID.prototype.stop = function() {
 	if(this.intervalId) {
 		clearTimeout(this.intervalId);
 		polling = false;
-		this.emit('poll:stop');
+		this.emit('stop');
 
-		if(this.debug) console.log('RFID: poll:stop');
+		if(this.debug) console.log('RFID: stop');
 	}
 };
 
@@ -89,7 +89,7 @@ RFID.prototype._nfcList = function(error, stdout, stderr) {
 	// emit a poll event no matter what
 	// (will be `null` if no card is present)
 	this.emit('poll', id);
-	
+
 	if(this.debug) console.log('RFID: poll: ', id);
 
 };
