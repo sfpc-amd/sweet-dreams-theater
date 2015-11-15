@@ -45,7 +45,7 @@ RFID.prototype.start = function() {
 	if(!polling) {
 		this.intervalId = setInterval(function() { self.nfcList() }, this.delay);
 		polling = true;
-		this.emit('poll:start');
+		this.emit('start');
 
 		if(this.debug) console.log('RFID: poll:start', this.delay);
 	}

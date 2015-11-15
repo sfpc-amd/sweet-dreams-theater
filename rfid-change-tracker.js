@@ -27,5 +27,5 @@ rfid.start();
 
 
 setInterval(function(){
-	// console.log('tick');
+	console.log('tick');
 }, 1000);
