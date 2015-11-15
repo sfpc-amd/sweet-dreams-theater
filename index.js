@@ -19,6 +19,8 @@ function init() {
   rfid.on('start', onRfidStart);
 	rfid.start();
 
+  omx.on('load', onOmxLoad);
+
 }
 
 function onRfidStart() {
@@ -33,6 +35,10 @@ function onRfidChange(id) {
   } else {
     console.error('Id not found!', id);
   }
+}
+
+function onOmxLoad(files, options) {
+  console.log('video successfull loaded', files, options);
 }
 
 function playDirectory(mediaPath) {
