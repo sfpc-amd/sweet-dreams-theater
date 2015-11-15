@@ -12,15 +12,18 @@ var rfid;
 
 
 function init() {
-  printIntro();
+  //printIntro();
 
   rfid = new RFID();
-  rfid.on('change', onTagChange);
-  rfid.start();
+  rfid.on('change', onRfidChange);
+  rfid.on('start', onRfidStart);
+	rfid.start();
 
 }
 
-function
+function onRfidStart() {
+	console.log('rfid start');
+}
 
 function onRfidChange(id) {
   console.log("Change tag: "+ id);
