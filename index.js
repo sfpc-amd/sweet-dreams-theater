@@ -42,14 +42,15 @@ function onOmxLoad(files, options) {
 }
 
 function playDirectory(mediaPath) {
-  omx.setVideoDir(mediaPath);
+  omx.stop();
+	omx.setVideoDir(mediaPath);
 
   // get list of files
   fs.readdir(mediaPath, function(err, files) {
 
     console.log('play files', files);
 
-    omx.play(files, {loop: true});
+    omx.play(files[0]);
 
   });
 
