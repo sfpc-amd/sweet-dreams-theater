@@ -50,7 +50,7 @@ function playDirectory(mediaPath) {
 
     console.log('play files', files);
 
-    omx.play(files[0]);
+    omx.play(files);
 
   });
 
