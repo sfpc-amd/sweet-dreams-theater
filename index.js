@@ -1,3 +1,10 @@
+
+if(process.argv.length > 2 && process.argv[2] === '-d') {
+	console.log('starting daemon');
+	require('daemon')();
+	var _daemon = true;	
+}
+
 // require libs
 var path = require('path')
   , fs = require('fs')
@@ -9,6 +16,11 @@ var pkg = require('./package.json')
   , config = require('./config.json');
 
 var rfid;
+
+// write pid file
+if(_daemon) {
+	fs.writeFile(path.join(process.cwd(), 'pid'), process.pid);
+}
 
 
 function init() {
