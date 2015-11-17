@@ -14,23 +14,27 @@ var rfid;
 function init() {
   printIntro();
 
-  rfid = new RFID();
-  rfid.on('change', onTagChange);
-  rfid.start();
+  rfid = new RFID({ debug: true });
+  rfid.on('change', onRfidChange);
+  rfid.on('start', onRfidStart);
+	rfid.start();
 
   omx.on('load', onOmxLoad);
 
 }
 
+function onRfidStart() {
+	console.log('rfid start');
+}
 
 function onRfidChange(id) {
   console.log("Change tag: "+ id);
 
-  // if(config.playlistMapping[id]) {
-  //   playDirectory(path.join(config.mediaDir, config.playlistMapping[id]));    
-  // } else {
-  //   console.error('Id not found!', id);
-  // }
+  if(config.playlistMapping[id]) {
+  	playDirectory(path.join(config.mediaDir, config.playlistMapping[id]));    
+  } else {
+  	console.error('Id not found!', id);
+  }
 }
 
 function onOmxLoad(files, options) {
@@ -38,14 +42,15 @@ function onOmxLoad(files, options) {
 }
 
 function playDirectory(mediaPath) {
-  omx.setVideoDir(mediaPath);
+  omx.stop();
+	omx.setVideoDir(mediaPath);
 
   // get list of files
   fs.readdir(mediaPath, function(err, files) {
 
     console.log('play files', files);
 
-    omx.play(files, {loop: true});
+    omx.play(files[0]);
 
   });
 
@@ -56,11 +61,4 @@ function printIntro() {
   console.log(pkg.title+' v'+pkg.version);
 }
 
-// read all files in given directory
-
-
-
-// jenky way of keeping script open
-// 
 init();
-// setInterval(function(){}, 1000);
