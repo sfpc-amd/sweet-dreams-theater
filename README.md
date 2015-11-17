@@ -3,6 +3,42 @@ Sweet Dreams Theater
 
 ![Sweet Dreams Theater](https://pbs.twimg.com/media/CSgr5GwXIAAsRbm.jpg)
 
+## Usage
+
+You should be able to operate with a set of bash scripts included in the project:
+
+### Testing
+
+It's a good idea to test the server first:
+
+```bash
+./test.sh
+```
+
+You will see a `nfc-poll` prompt. Try touching a tag to the sensor and see if it gets registered. Next it will open the application in the foreground, so you'll be able to see the prompts logged in the terminal. Once again, try touching a tag to the sensor to make sure it works.
+
+
+### Starting
+
+This one's pretty easy:
+
+```bash
+./start.sh
+```
+
+It will opent the app in the background and save the process id in a file called "pid" in the project folder.
+
+### Stopping
+
+To stop the application, run:
+
+```bash
+./stop.sh
+```
+
+This will attempt to use the "pid" file to stop the background process.
+
+
 ## Setup
 
 This was built on a system using the Raspberry Pi with the following setup:
