@@ -8,7 +8,7 @@ function pollResult(error, stdout, stderr) {
 	var id = null;
 
 
-	console.log(stdout);
+	//console.log(stdout);
 
 
 	if(error) {
@@ -24,6 +24,12 @@ function pollResult(error, stdout, stderr) {
 
 	console.log('RFID: poll: ', id);
 
+	setTimeout(execPoll, 0);
+
 };
 
-exec('nfc-poll', pollResult);
+function execPoll() {
+	exec('nfc-poll', pollResult);
+}
+
+execPoll();

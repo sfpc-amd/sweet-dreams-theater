@@ -6,8 +6,8 @@
  * Events
  *
  * "poll" - emitted every time the nfc list is polled
- * "poll:start" - emitted when polling starts
- * "poll:stop" - emitted when polling stops
+ * "start" - emitted when polling starts
+ * "stop" - emitted when polling stops
  * "change" - emitted when id is changed
  * "error" - emitted if there is an error during polling
  */
@@ -25,8 +25,8 @@ var sys = require('sys')
 var re = /UID \([A-z0-9]+\):([a-z0-9 ]+)/
 	, defaultDelay = 500
 	, polling = false
-	, continuePolling = true;
-	// , currentId;
+	, continuePolling = true
+  , currentId;
 
 
 var RFID = function(opts) {
@@ -74,12 +74,12 @@ RFID.prototype.nfcPoll = function() {
 RFID.prototype._nfcPoll = function(error, stdout, stderr) {
 	var id = null;
 
-	if(error) {
+	/*if(error) {
 		this.emit('error', error);
 
 		if(this.debug) console.error('RFID: error: ', error);
 		return;
-	}
+	}*/
 
 	// search for id
 	if(re.test(stdout)) {
@@ -98,7 +98,7 @@ RFID.prototype._nfcPoll = function(error, stdout, stderr) {
 	if(this.debug) console.log('RFID: poll: ', id);
 
 	if(continuePolling) {
-		setTimeout(this.nfcPoll, 0);
+		setTimeout(this.nfcPoll.bind(this), 0);
 	} else {
 		polling = false;
 		this.emit('stop');

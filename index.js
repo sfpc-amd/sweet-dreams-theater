@@ -14,7 +14,7 @@ var rfid;
 function init() {
   printIntro();
 
-  rfid = new RFID();
+  rfid = new RFID({ debug: true });
   rfid.on('change', onRfidChange);
   rfid.on('start', onRfidStart);
 	rfid.start();
@@ -30,11 +30,11 @@ function onRfidStart() {
 function onRfidChange(id) {
   console.log("Change tag: "+ id);
 
-  // if(config.playlistMapping[id]) {
-  //   playDirectory(path.join(config.mediaDir, config.playlistMapping[id]));    
-  // } else {
-  //   console.error('Id not found!', id);
-  // }
+  if(config.playlistMapping[id]) {
+  	playDirectory(path.join(config.mediaDir, config.playlistMapping[id]));    
+  } else {
+  	console.error('Id not found!', id);
+  }
 }
 
 function onOmxLoad(files, options) {
