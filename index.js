@@ -15,7 +15,9 @@ var path = require('path')
 var pkg = require('./package.json')
   , config = require('./config.json');
 
-var rfid;
+var playingSelection = false
+  , rfid;
+
 
 // write pid file
 if(_daemon) {
@@ -32,6 +34,9 @@ function init() {
 	rfid.start();
 
   omx.on('load', onOmxLoad);
+  omx.on('stop', onOmxStop);
+
+  playDefaultPlaylist();
 
 }
 
@@ -53,7 +58,19 @@ function onOmxLoad(files, options) {
   console.log('video successfull loaded', files, options);
 }
 
-function playDirectory(mediaPath) {
+function onOmxStop() {
+  if(playingSelection) {
+    playingSelection = false;
+    playDefaultPlaylist();
+  }
+}
+
+
+function playDirectory(mediaPath, opts, userSelection) {
+  opts = opts || {};
+  userSelection = typeof userSelection === 'undefined' ? true : userSelection;
+
+
   omx.stop();
 	omx.setVideoDir(mediaPath);
 
@@ -61,11 +78,17 @@ function playDirectory(mediaPath) {
   fs.readdir(mediaPath, function(err, files) {
 
     console.log('play files', files);
+    
+    // by default, set playing selection to true unless overwritten
+    playingSelection = userSelection;
 
-    omx.play(files);
-
+    omx.play(files, opts);
   });
 
+}
+
+function playDefaultPlaylist() {
+    playDirectory(path.join(config.mediaDir, config.defaultPlaylist), { loop: true }, false);    
 }
 
  

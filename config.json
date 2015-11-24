@@ -1,5 +1,6 @@
 {
 	"mediaDir" : "/media/sfpc-media/share/",
+	"defaultPlaylist" : "attract",
 	"playlistMapping" : {
 		"04d950b99e2580" : "tag1",
 		"0444b3b99e2580" : "tag2"
